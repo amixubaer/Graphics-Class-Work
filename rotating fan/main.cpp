@@ -16,16 +16,19 @@ float translate_x = 0.0;
 float translate_y = 0.0;
 float translate_z = -30.0;
 
+
 void init()
 {
 
-    glClearColor(0,0,0,0);
+    	glClearColor(0,0,0,0);
 
-	glShadeModel(GL_SMOOTH);
+
+	glShadeModel(GL_SMOOTH);	// Enable Smooth Shading
 	glClearDepth(1.0f);			// Depth Buffer Setup
 	glEnable(GL_DEPTH_TEST);	// Enables Depth Testing
 
 }
+
 
 
 void setSpin(float x, float y, float z)
@@ -166,6 +169,30 @@ void mouse(int button,int state,int x,int y)
 	}
 }
 
+void keyboard(unsigned char key, int x, int y)
+{
+
+	 if(key=='i')
+	{
+		translate_z++;
+		glutPostRedisplay();
+	}
+	else if(key=='o')
+	{
+		translate_z--;
+		glutPostRedisplay();
+	}
+	//-------- zoom --------
+
+	//-------- reset -------
+	else if(key=='r')
+	{
+		reset();
+		glutPostRedisplay();
+	}
+	//-------- reset -------
+}
+
 
 int main(int argc, char **argv)
 {
@@ -175,13 +202,14 @@ glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 glutInitWindowPosition(0,0);
 
 glutInitWindowSize(640,480);
-glutCreateWindow("Rotating Fan");
+glutCreateWindow("Rotating Fan ");
 
 
 
 init();
 glutReshapeFunc(reshape);
 glutMouseFunc(mouse);
+glutKeyboardFunc(keyboard);
 glutDisplayFunc(myDisplay);
 glutMainLoop();
 
